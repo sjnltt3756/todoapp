@@ -1,7 +1,6 @@
 package com.todoapp.controller;
 
 import com.todoapp.domain.ToDo;
-import com.todoapp.repository.ToDoRepository;
 import com.todoapp.service.ToDoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -16,7 +15,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TodoController {
 
-    private final ToDoRepository toDoRepository;
     private final ToDoService toDoService;
 
     @GetMapping("/")
@@ -32,4 +30,9 @@ public class TodoController {
         return "redirect:/";
     }
 
+    @PostMapping("/updateTodo")
+    public String updateTodo(@RequestParam Long id, @RequestParam(required = false) boolean complete) {
+        toDoService.complete(id, complete);
+        return "redirect:/"; // 업데이트 후 홈으로 리다이렉트
+    }
 }
