@@ -6,5 +6,6 @@ import java.util.List;
 
 public interface ToDoService {
     public List<ToDo> List();
-    public String addTodo(String todo);
+    public ToDo addTodo(String todo);
+    public ToDo complete(Long id, boolean complete);
 }

@@ -16,15 +16,21 @@ public class ToDoServiceImpl implements ToDoService{
     private final ToDoRepository toDoRepository;
 
     public List<ToDo> List(){
-        List<ToDo> todoList = toDoRepository.findAll();
-        return todoList;
+        return toDoRepository.findAll();
     }
 
-    public String addTodo(String todo){
+    public ToDo addTodo(String todo){
         ToDo toDo = new ToDo();
         toDo.setTodo(todo);
-        toDoRepository.save(toDo);
-        return todo;
+        toDo.setComplete(false);
+        return toDoRepository.save(toDo);
     }
+
+    public ToDo complete(Long id, boolean complete){
+        ToDo todo = toDoRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("잘못된 할 일 ID: " + id));
+        todo.setComplete(complete);
+        return toDoRepository.save(todo);
+    }
+
 
 }
