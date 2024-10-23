@@ -2,6 +2,7 @@ package com.todoapp.controller;
 
 import com.todoapp.domain.ToDo;
 import com.todoapp.repository.ToDoRepository;
+import com.todoapp.service.ToDoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,19 +17,18 @@ import java.util.List;
 public class TodoController {
 
     private final ToDoRepository toDoRepository;
+    private final ToDoService toDoService;
 
     @GetMapping("/")
     public String index(Model model){
-        List<ToDo> todos = toDoRepository.findAll();
+        List<ToDo> todos = toDoService.List();
         model.addAttribute("todos",todos);
         return "todos";
     }
 
     @PostMapping("/addTodo")
     public String addTodo(@RequestParam("todo") String todo){
-        ToDo toDo = new ToDo();
-        toDo.setTodo(todo);
-        toDoRepository.save(toDo);
+        toDoService.addTodo(todo);
         return "redirect:/";
     }
 
