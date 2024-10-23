@@ -2,15 +2,22 @@
 <html lang="ko"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-    <h1>Todo App</h1>
-    <form method="post" action = "/addTodo">
-        <input type="text" name="todo"/>
-        <input type="submit" value="Add Todo"/>
-        <hr>
-        <ul>
-            <li th:each="todo : ${todos}">
-                <span th:text="${todo.todo}"></span>
-            </li>
-        </ul>
-    </form>
+<h1>Todo App</h1>
+<form method="post" action="/addTodo">
+    <input type="text" name="todo" placeholder="새 할 일을 입력하세요"/>
+    <input type="submit" value="할 일 추가"/>
+</form>
+<hr>
+<ul>
+    <li th:each="todo : ${todos}">
+        <form method="post" th:action="@{/updateTodo}">
+            <!-- 할 일 텍스트 -->
+            <span th:text="${todo.todo}"></span>
+            <!-- 완료/미완료를 체크할 수 있는 체크박스 -->
+            <input type="checkbox" name="complete" th:checked="${todo.complete}"/>
+            <input type="hidden" name="id" th:value="${todo.id}"/>
+            <input type="submit" value="완료"/>
+        </form>
+    </li>
+</ul>
 </html>
