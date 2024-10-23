@@ -19,6 +19,8 @@ public class ToDo {
     @NotNull
     private String todo;
 
+    private boolean complete;
+
 
 
 }
