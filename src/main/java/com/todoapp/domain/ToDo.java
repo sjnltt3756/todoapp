@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.antlr.v4.runtime.misc.NotNull;
 
+import java.time.LocalDate;
+
 @Entity(name = "Todo")
 @Table(name = "todo")
 @AllArgsConstructor
@@ -16,11 +18,12 @@ import org.antlr.v4.runtime.misc.NotNull;
 public class ToDo {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @NotNull
     private String todo;
 
     private boolean complete;
-
-
+    @NotNull
+    private LocalDate today;
 
 }
