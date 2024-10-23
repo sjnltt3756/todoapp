@@ -5,19 +5,25 @@
 <h1>Todo App</h1>
 <form method="post" action="/addTodo">
     <input type="text" name="todo" placeholder="새 할 일을 입력하세요"/>
+    <input type="date" name="date"/> <!-- 날짜 입력 필드 추가 -->
     <input type="submit" value="할 일 추가"/>
 </form>
 <hr>
-<ul>
-    <li th:each="todo : ${todos}">
-        <form method="post" th:action="@{/updateTodo}">
-            <!-- 할 일 텍스트 -->
-            <span th:text="${todo.todo}"></span>
-            <!-- 완료/미완료를 체크할 수 있는 체크박스 -->
-            <input type="checkbox" name="complete" th:checked="${todo.complete}"/>
-            <input type="hidden" name="id" th:value="${todo.id}"/>
-            <input type="submit" value="완료"/>
-        </form>
-    </li>
-</ul>
+
+<!-- 날짜별 할 일 목록 -->
+<div th:each="entry : ${todosByDate}">
+    <h2 th:text="${entry.key}">날짜</h2> <!-- 날짜 표시 -->
+    <ul>
+        <li th:each="todo : ${entry.value}">
+            <form method="post" th:action="@{/updateTodo}">
+                <!-- 할 일 텍스트 -->
+                <span th:text="${todo.todo}"></span>
+                <!-- 완료/미완료를 체크할 수 있는 체크박스 -->
+                <input type="checkbox" name="complete" th:checked="${todo.complete}"/>
+                <input type="hidden" name="id" th:value="${todo.id}"/>
+                <input type="submit" value="상태 업데이트"/>
+            </form>
+        </li>
+    </ul>
+</div>
 </html>
